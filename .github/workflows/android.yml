@@ -58,7 +58,14 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends librsvg2-bin cmake ninja-build gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
       - name: Build the APK
-        run: bash packaging/android/build-apk.sh
+        env:
+          CINNABAR_ANDROID_KEYSTORE: ${{ runner.temp }}/release.keystore
+          CINNABAR_ANDROID_KEY_ALIAS: cinnabar
+          CINNABAR_ANDROID_STORE_PASSWORD: android
+          CINNABAR_ANDROID_KEY_PASSWORD: android
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 -d > "$CINNABAR_ANDROID_KEYSTORE"
+          bash packaging/android/build-apk.sh
       - uses: actions/upload-artifact@v7
         with:
           name: cinnabar-android-arm64
