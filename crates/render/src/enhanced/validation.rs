@@ -140,7 +140,7 @@ fn enhanced_pipelines_build_on_native_adapter() {
             }),
             primitive: Default::default(),
             depth_stencil: shadow.then_some(wgpu::DepthStencilState {
-                format: wgpu::TextureFormat::Depth32Float,
+                format: wgpu::TextureFormat::Depth24Plus,
                 depth_write_enabled: Some(true),
                 depth_compare: Some(wgpu::CompareFunction::LessEqual),
                 stencil: Default::default(),

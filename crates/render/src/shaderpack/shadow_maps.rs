@@ -44,7 +44,7 @@ pub(super) fn shadow_maps(
                 mip_level_count: 1,
                 sample_count: 1,
                 dimension: wgpu::TextureDimension::D2,
-                format: TextureFormat::Depth32Float,
+                format: TextureFormat::Depth24Plus,
                 usage: TextureUsages::RENDER_ATTACHMENT
                     | TextureUsages::TEXTURE_BINDING
                     | TextureUsages::COPY_SRC,

@@ -291,7 +291,7 @@ pub(crate) fn init_gpu(mut commands: Commands, device: Res<RenderDevice>) {
         mip_level_count: 1,
         sample_count: 1,
         dimension: TextureDimension::D2,
-        format: TextureFormat::Depth32Float,
+        format: TextureFormat::Depth24Plus,
         usage: TextureUsages::TEXTURE_BINDING | TextureUsages::RENDER_ATTACHMENT,
         view_formats: &[],
     });

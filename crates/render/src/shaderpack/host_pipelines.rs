@@ -8,7 +8,7 @@ use wgpu::util::DeviceExt;
 // The shared depth pipelines also restore the native scene attachment.
 const _: () = assert!(matches!(
     bevy::core_pipeline::core_3d::CORE_3D_DEPTH_FORMAT,
-    TextureFormat::Depth32Float
+    TextureFormat::Depth24Plus
 ));
 
 /// Whether a mip source can use the host's linear filtering sampler on this device.
@@ -87,7 +87,7 @@ pub(super) fn host_pipelines(
             },
             primitive: Default::default(),
             depth_stencil: depth.then(|| wgpu::DepthStencilState {
-                format: TextureFormat::Depth32Float,
+                format: TextureFormat::Depth24Plus,
                 depth_write_enabled: Some(true),
                 depth_compare: Some(wgpu::CompareFunction::Always),
                 stencil: Default::default(),

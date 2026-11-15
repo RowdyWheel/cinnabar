@@ -5,20 +5,15 @@
     "device": null,
     "integrated": true,
     "driver_contains": null,
-    "min_version": [0, 0],
-    "max_version": [101, 2114],
+    "min_version": [
+      0,
+      0
+    ],
+    "max_version": [
+      101,
+      2114
+    ],
     "backend": "vulkan",
     "reason": "Prefer DX12 for older Intel integrated drivers with Vulkan robustness issues."
-  },
-  {
-    "platform": "android",
-    "vendor": 20803,
-    "device": null,
-    "integrated": null,
-    "driver_contains": null,
-    "min_version": null,
-    "max_version": null,
-    "backend": "vulkan",
-    "reason": "Old Adreno Vulkan drivers cannot render to Depth32Float."
   }
 ]

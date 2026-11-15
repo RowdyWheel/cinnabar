@@ -45,7 +45,7 @@ use {
 
 pub(crate) const CASTER_SLOT_BYTES: u64 = 256;
 const CASTER_UNIFORM_BYTES: u64 = 96;
-pub(crate) const SHADOW_FORMAT: TextureFormat = TextureFormat::Depth32Float;
+pub(crate) const SHADOW_FORMAT: TextureFormat = TextureFormat::Depth24Plus;
 pub(crate) const POST_FORMAT: TextureFormat = TextureFormat::Rgba16Float;
 
 /// Mirrors `CasterUniform` in enhanced/caster.wesl, padded to one dynamic slot.

@@ -63,7 +63,7 @@ impl TextureSource {
             | TextureSource::Depth { format, .. }
             | TextureSource::Image { format, .. }
             | TextureSource::Constant { format, .. } => format,
-            TextureSource::DepthCompare(_) => TextureFormat::Depth32Float,
+            TextureSource::DepthCompare(_) => TextureFormat::Depth24Plus,
             TextureSource::Atlas(_) => ATLAS_FORMAT,
         }
     }
@@ -340,7 +340,7 @@ impl<'a> ConstantBuilder<'a> {
             SampleType::Float => TextureFormat::Rgba8Unorm,
             SampleType::Sint => TextureFormat::Rgba8Sint,
             SampleType::Uint => TextureFormat::Rgba8Uint,
-            SampleType::Depth => TextureFormat::Depth32Float,
+            SampleType::Depth => TextureFormat::Depth24Plus,
         };
         let (index, format) = self.placeholder(format, dimension, false)?;
         Ok(TextureSource::Constant { index, format })
@@ -566,7 +566,7 @@ impl<'a> ConstantBuilder<'a> {
             &self.gpu.device.limits(),
         )?;
         let format = if sample == SampleType::Depth {
-            TextureFormat::Depth32Float
+            TextureFormat::Depth24Plus
         } else if self.support.float32_filterable {
             TextureFormat::R32Float
         } else {

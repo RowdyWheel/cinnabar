@@ -198,7 +198,7 @@ pub(super) fn prepare(params: PrepareViewmodel) {
         gpu.depth = None;
         return;
     };
-    let features = adapter.get_texture_format_features(TextureFormat::Depth32Float);
+    let features = adapter.get_texture_format_features(TextureFormat::Depth24Plus);
     if render_size
         .iter()
         .any(|v| *v > device.limits().max_texture_dimension_2d)
@@ -366,7 +366,7 @@ pub(super) fn ensure_depth(
                 mip_level_count: 1,
                 sample_count: samples,
                 dimension: TextureDimension::D2,
-                format: TextureFormat::Depth32Float,
+                format: TextureFormat::Depth24Plus,
                 usage: TextureUsages::RENDER_ATTACHMENT,
                 view_formats: &[],
             })
@@ -512,7 +512,7 @@ pub(super) fn hand_pipeline_descriptor(
             ..default()
         }),
         depth_stencil: Some(DepthStencilState {
-            format: TextureFormat::Depth32Float,
+            format: TextureFormat::Depth24Plus,
             depth_write_enabled: Some(true),
             depth_compare: Some(CompareFunction::GreaterEqual),
             stencil: default(),

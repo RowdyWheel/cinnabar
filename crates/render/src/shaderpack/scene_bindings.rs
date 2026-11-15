@@ -163,7 +163,7 @@ mod tests {
                 .create_view(&Default::default())
         };
         let colours = std::array::from_fn::<_, 2, _>(|_| texture(render_scene::SCENE_COLOR_FORMAT));
-        let depth = texture(TextureFormat::Depth32Float);
+        let depth = texture(TextureFormat::Depth24Plus);
         let parameters = device.create_buffer(&wgpu::BufferDescriptor {
             label: None,
             size: std::mem::size_of::<super::super::passes::SceneDepthParameters>() as u64,
@@ -210,7 +210,7 @@ mod tests {
                 );
             }
         }
-        let replacement = texture(TextureFormat::Depth32Float);
+        let replacement = texture(TextureFormat::Depth24Plus);
         cache.prepare(
             &device,
             &host,

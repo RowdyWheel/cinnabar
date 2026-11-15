@@ -181,7 +181,7 @@ impl ViewTargets {
                 target(
                     device,
                     &format!("shader pack depthtex{i} comparison"),
-                    TextureFormat::Depth32Float,
+                    TextureFormat::Depth24Plus,
                     screen_size,
                     sampled | TextureUsages::COPY_DST,
                 )
@@ -191,7 +191,7 @@ impl ViewTargets {
             target(
                 device,
                 "shader pack geometry depth",
-                TextureFormat::Depth32Float,
+                TextureFormat::Depth24Plus,
                 screen_size,
                 sampled | TextureUsages::COPY_SRC,
             )

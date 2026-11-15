@@ -95,7 +95,7 @@ impl FrameGenerationInput<'_> {
             (
                 self.depth,
                 size.render,
-                wgpu::TextureFormat::Depth32Float,
+                wgpu::TextureFormat::Depth24Plus,
                 wgpu::TextureUsages::TEXTURE_BINDING,
             ),
         ] {

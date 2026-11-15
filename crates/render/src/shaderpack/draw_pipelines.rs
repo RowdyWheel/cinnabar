@@ -189,7 +189,7 @@ pub(crate) fn draw_pipeline(
                 vertex: vertex.clone(),
                 primitive,
                 depth_stencil: Some(wgpu::DepthStencilState {
-                    format: TextureFormat::Depth32Float,
+                    format: TextureFormat::Depth24Plus,
                     depth_write_enabled: Some(true),
                     depth_compare: Some(kind.depth_compare()),
                     stencil: Default::default(),
@@ -218,7 +218,7 @@ pub(crate) fn draw_pipeline(
                 vertex: vertex.clone(),
                 primitive,
                 depth_stencil: Some(wgpu::DepthStencilState {
-                    format: TextureFormat::Depth32Float,
+                    format: TextureFormat::Depth24Plus,
                     depth_write_enabled: Some(false),
                     depth_compare: Some(wgpu::CompareFunction::LessEqual),
                     stencil: Default::default(),
@@ -243,7 +243,7 @@ pub(crate) fn draw_pipeline(
             vertex,
             primitive,
             depth_stencil: kind.depth().then_some(wgpu::DepthStencilState {
-                format: TextureFormat::Depth32Float,
+                format: TextureFormat::Depth24Plus,
                 depth_write_enabled: Some(kind.depth_write(inputs.effects) && prepass.is_none()),
                 depth_compare: Some(kind.depth_compare()),
                 stencil: Default::default(),
