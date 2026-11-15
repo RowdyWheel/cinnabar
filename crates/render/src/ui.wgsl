@@ -40,6 +40,11 @@ UI_REPEAT_DECODER
 UI_SHADOW_DECODER
 UI_HALF_FLOAT_ROUNDING
 
+fn sample_nearest(uv: vec2<f32>, page: u32) -> vec4<f32> {
+    let size = vec2<i32>(textureDimensions(ui_pages));
+    let texel = clamp(vec2<i32>(floor(uv * vec2<f32>(size))), vec2<i32>(0), size - vec2<i32>(1));
+    return textureLoad(ui_pages, texel, i32(page), 0);
+}
 // Sample the shared decoder's source coordinates with the requested filter.
 fn sample_repeat(input: UiVertexOutput, dimensions: vec2<f32>) -> vec4<f32> {
     let bounds = vec4<f32>(input.repeat_bounds.xy + input.atlas_offset, input.repeat_bounds.zw);
@@ -54,9 +59,8 @@ fn sample_repeat(input: UiVertexOutput, dimensions: vec2<f32>) -> vec4<f32> {
     if linear {
         return textureSampleLevel(ui_pages, ui_linear_sampler, uv / dimensions, i32(input.texture_page), 0.0);
     }
-    return textureSampleLevel(ui_pages, ui_sampler, uv / dimensions, i32(input.texture_page), 0.0);
+    return sample_nearest(uv / dimensions, input.texture_page);
 }
-
 @group(0) @binding(0) var<uniform> viewport: UiViewport;
 @group(0) @binding(1) var ui_pages: texture_2d_array<f32>;
 @group(0) @binding(2) var ui_sampler: sampler;
@@ -271,11 +275,11 @@ fn shade_ui(input: UiVertexOutput, direct: bool, front_facing: bool) -> vec4<f32
     } else if (input.style_flags & STYLE_TERRAIN_MIPS) != 0u {
         let footprint = max(length(uv_dx), length(uv_dy));
         let level = max(0.0, log2(max(footprint, 1.0)));
-        sample = textureSampleLevel(ui_pages, ui_sampler, normalized_uv, i32(input.texture_page), level);
+        sample = textureSampleLevel(ui_pages, ui_linear_sampler, normalized_uv, i32(input.texture_page), level);
     } else if sdf_font || (input.style_flags & STYLE_BILINEAR) != 0u {
         sample = textureSampleLevel(ui_pages, ui_linear_sampler, normalized_uv, i32(input.texture_page), 0.0);
     } else {
-        sample = textureSampleLevel(ui_pages, ui_sampler, normalized_uv, i32(input.texture_page), 0.0);
+        sample = sample_nearest(normalized_uv, input.texture_page);
     }
     if ui_page_format.format.x != 0u {
         sample = vec4<f32>(1.0, 1.0, 1.0, sample.r);
