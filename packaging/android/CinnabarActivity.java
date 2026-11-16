@@ -176,7 +176,21 @@ public final class CinnabarActivity extends NativeActivity {
     public long startupGeneration() { return startupGeneration; }
 
     /** Keeps a native startup failure readable until the player closes the activity. */
+        private void copyLogForUser() {
+        try {
+            java.io.File src = new java.io.File(getFilesDir(), "data/logs/client.log");
+            java.io.File dir = getExternalFilesDir(null);
+            if (dir == null || !src.isFile()) return;
+            try (java.io.InputStream in = new java.io.FileInputStream(src);
+                    java.io.OutputStream out = new java.io.FileOutputStream(new java.io.File(dir, "client.log"))) {
+                byte[] buffer = new byte[65536];
+                for (int n; (n = in.read(buffer)) != -1; ) out.write(buffer, 0, n);
+            }
+        } catch (java.io.IOException | RuntimeException ignored) { }
+    }
+
     public void startupFailed(String message) {
+        copyLogForUser();
         runOnUiThread(() -> {
             if (isFinishing() || isDestroyed()) return;
             startupActive = false;
