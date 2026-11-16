@@ -93,7 +93,7 @@ impl Platform {
         match self {
             Self::Windows => &[Backend::Dx12, Backend::Vulkan],
                         Self::Linux => &[Backend::Vulkan],
-            Self::Android => &[Backend::Vulkan, Backend::Gl],
+                        Self::Android => &[Backend::Vulkan],
             Self::Macos | Self::Ios => &[Backend::Metal],
         }
     }
