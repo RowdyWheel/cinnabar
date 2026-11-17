@@ -30,6 +30,9 @@ public final class CinnabarActivity extends NativeActivity {
     private InputManager.InputDeviceListener inputDeviceListener;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
+        try {
+            android.system.Os.setenv("CINNABAR_LOG", "wgpu_core=trace,wgpu_hal=debug", true);
+        } catch (Exception ignored) { }
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= 28) {
             WindowManager.LayoutParams attributes = getWindow().getAttributes();
