@@ -219,7 +219,7 @@ pub(super) fn render_plugin(
     }
     Ok(RenderPlugin {
         render_creation: creation,
-        synchronous_pipeline_compilation: false,
+        synchronous_pipeline_compilation: true,
         ..Default::default()
     })
 }
