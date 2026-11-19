@@ -59,7 +59,7 @@ fn clear_fragment() -> @location(0) vec4<f32> {
 
 @fragment
 fn composite_fragment(@builtin(position) position: vec4<f32>) -> @location(0) vec4<f32> {
-    return composite_pixel(position, false);
+    return vec4<f32>(0.0);
 }
 
 @fragment
